@@ -4,6 +4,7 @@ from tkinter import messagebox
 from playsound import playsound
 import math
 from pygame import mixer
+# from PIL import Image, ImageTk
 
 
 ## Variables
@@ -43,8 +44,8 @@ window.iconbitmap(pic_chip)
 def start():
     lbl_photo.place(x=-10, y=0)
     lbl_roulette_welcome.place(x=340, y=157)
-    btn_roulette_Roulette.place(x=100, y=520)
-    btn_roulette_Blackjack.place(x=540, y=520)
+    btn_roulette_Roulette.place(x=70, y=520)
+    btn_roulette_Blackjack.place(x=510, y=520)
     lbl_balance.place(x=870, y=2)
     window['bg'] = '#000051'
     lbl_balance['bg'] = '#000051'
@@ -56,6 +57,18 @@ def background_music():
     mixer.music.play(loops=1, start=random.randrange(0, 360))
 background_music()
 
+# def line_spin():
+#     line = None
+#     canvas_line = Canvas(window, width=600, height=600, bg='#008000', highlightbackground='#008000')
+#     canvas_line.place(x=325, y=45)
+#     t = True
+#     for i in range(0, random.randrange(10, 360), random.randrange(5, 15)):
+#
+#         line = canvas_line.create_line(325, 325, 325, 50, fill='white',
+#                             width=5, arrow=LAST, dash=(10, 2),
+#                             activefill='lightgreen',
+#                             arrowshape=(10, 20, 10))
+#         canvas_line.delete()
 
 def btn_help_pressed(where):
     if where:
@@ -83,6 +96,7 @@ def btn_help_pressed(where):
 
 
 def btn_roulette_pressed():
+
     global btn_help
     lbl_photo.place_forget()
     btn_roulette_Blackjack.place_forget()
