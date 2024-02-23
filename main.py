@@ -4,6 +4,7 @@ from tkinter import messagebox
 from playsound import playsound
 import math
 from pygame import mixer
+
 # from PIL import Image, ImageTk
 
 
@@ -52,23 +53,38 @@ def start():
 
 
 mixer.init()
+
+
 def background_music():
     mixer.music.load(music_sound)
     mixer.music.play(loops=1, start=random.randrange(0, 360))
-background_music()
 
-# def line_spin():
-#     line = None
-#     canvas_line = Canvas(window, width=600, height=600, bg='#008000', highlightbackground='#008000')
-#     canvas_line.place(x=325, y=45)
-#     t = True
-#     for i in range(0, random.randrange(10, 360), random.randrange(5, 15)):
+
+# background_music()
+
+
+# def rotate_line(canvas):
+#     angle_degrees = random.randrange(10, 360)
+#     # Center point of rotation
+#     center_x, center_y = 250, 250
 #
-#         line = canvas_line.create_line(325, 325, 325, 50, fill='white',
-#                             width=5, arrow=LAST, dash=(10, 2),
-#                             activefill='lightgreen',
-#                             arrowshape=(10, 20, 10))
-#         canvas_line.delete()
+#     # Length of the line
+#     line_length = 100
+#
+#     # Convert angle from degrees to radians
+#     angle_radians = math.radians(angle_degrees)
+#
+#     # Calculate the end point coordinates after rotation
+#     end_x = center_x + line_length * math.cos(angle_radians)
+#     end_y = center_y + line_length * math.sin(angle_radians)
+#
+#     # Create the rotated line
+#     canvas.create_line(325, 325, end_x, end_y,
+#                        fill='white', width=5, arrow=LAST,
+#                        dash=(10, 2), arrowshape=(10, 20, 10), tags="rotated_line")
+#     canvas.after(200)
+#     #canvas.delete("rotated_line")
+
 
 def btn_help_pressed(where):
     if where:
@@ -96,7 +112,7 @@ def btn_help_pressed(where):
 
 
 def btn_roulette_pressed():
-
+    global canvas
     global btn_help
     lbl_photo.place_forget()
     btn_roulette_Blackjack.place_forget()
@@ -225,58 +241,59 @@ def btn_spin_pressed():
     cell = random.randrange(0, 35)
     lbl_roulette_cell['text'] = f'{cell} rolled'
     playsound(wheel_sound)
+    # rotate_line(canvas)
     if bet_choice == "Odd" and cell % 2 == 1:
         playsound(win_sound)
-        messagebox.showinfo("Маладес", f'Выпало {cell} и ты выиграл {bet * 2} деняк! \n Odd ore black')
-        balance = balance + bet * 2
+        messagebox.showinfo("Маладес", f'Выпало {cell} и ты выиграл {bet} деняк! \n Odd ore black')
+        balance = balance + bet
         lbl_balance['text'] = f'Balance:\n{balance}$'
 
     elif bet_choice == "Even" and cell % 2 == 0:
         playsound(win_sound)
-        messagebox.showinfo("Маладес", f'Выпало {cell} и ты выиграл {bet * 2} деняк! \n Even or red')
-        balance = balance + bet * 2
+        messagebox.showinfo("Маладес", f'Выпало {cell} и ты выиграл {bet} деняк! \n Even or red')
+        balance = balance + bet
         lbl_balance['text'] = f'Balance:\n{balance}$'
 
     elif bet_choice == "Black" and cell % 2 == 0:
         playsound(win_sound)
-        messagebox.showinfo("Маладес", f'Выпало {cell} и ты выиграл {bet * 2} деняк! \n Even or red')
-        balance = balance + bet * 2
+        messagebox.showinfo("Маладес", f'Выпало {cell} и ты выиграл {bet} деняк! \n Even or red')
+        balance = balance + bet
         lbl_balance['text'] = f'Balance:\n{balance}$'
 
     elif bet_choice == "Red" and cell % 2 == 0:
         playsound(win_sound)
-        messagebox.showinfo("Маладес", f'Выпало {cell} и ты выиграл {bet * 2} деняк! \n Even or red')
-        balance = balance + bet * 2
+        messagebox.showinfo("Маладес", f'Выпало {cell} и ты выиграл {bet} деняк! \n Even or red')
+        balance = balance + bet
         lbl_balance['text'] = f'Balance:\n{balance}$'
 
     elif bet_choice == "1st 12" and 0 <= cell <= 12:
         playsound(win_sound)
-        messagebox.showinfo("Маладес", f'Выпало {cell} и ты выиграл {bet * 2} деняк! \n 1st 12')
-        balance = balance + bet * 2
+        messagebox.showinfo("Маладес", f'Выпало {cell} и ты выиграл {bet} деняк! \n 1st 12')
+        balance = balance + bet
         lbl_balance['text'] = f'Balance:\n{balance}$'
 
     elif bet_choice == "2nd 12" and 13 <= cell <= 24:
         playsound(win_sound)
-        messagebox.showinfo("Маладес", f'Выпало {cell} и ты выиграл {bet * 2} деняк! \n 2nd 12')
-        balance = balance + bet * 2
+        messagebox.showinfo("Маладес", f'Выпало {cell} и ты выиграл {bet} деняк! \n 2nd 12')
+        balance = balance + bet
         lbl_balance['text'] = f'Balance:\n{balance}$'
 
     elif bet_choice == "3rd 12" and 25 <= cell <= 35:
         playsound(win_sound)
-        messagebox.showinfo("Маладес", f'Выпало {cell} и ты выиграл {bet * 2} деняк! \n Even')
-        balance = balance + bet * 2
+        messagebox.showinfo("Маладес", f'Выпало {cell} и ты выиграл {bet} деняк! \n Even')
+        balance = balance + bet
         lbl_balance['text'] = f'Balance:\n{balance}$'
 
     elif bet_choice == "1 to 18" and 1 <= cell <= 18:
         playsound(win_sound)
-        messagebox.showinfo("Маладес", f'Выпало {cell} и ты выиграл {bet * 2} деняк! \n Even')
-        balance = balance + bet * 2
+        messagebox.showinfo("Маладес", f'Выпало {cell} и ты выиграл {bet} деняк! \n Even')
+        balance = balance + bet
         lbl_balance['text'] = f'Balance:\n{balance}$'
 
     elif bet_choice == "19 to 35" and 19 <= cell <= 35:
         playsound(win_sound)
-        messagebox.showinfo("Маладес", f'Выпало {cell} и ты выиграл {bet * 2} деняк! \n Even')
-        balance = balance + bet * 2
+        messagebox.showinfo("Маладес", f'Выпало {cell} и ты выиграл {bet} деняк! \n Even')
+        balance = balance + bet
         lbl_balance['text'] = f'Balance:\n{balance}$'
 
     elif bet_choice.isdigit() and cell == int(bet_choice):
@@ -290,7 +307,6 @@ def btn_spin_pressed():
         messagebox.showinfo("Проиграл", f'Выпало {cell} и ты проиграл {bet} деняк! \n Lose')
         balance = balance - bet
         lbl_balance['text'] = f'Balance:\n{balance}$'
-
 
 
 def btn_blackjack_pressed():
@@ -337,8 +353,8 @@ def btn_blackjack_reveal_pressed():
     elif dealer_sum < player_sum:
         playsound(win_sound)
         messagebox.showinfo("You won!", f"Dealer's hand was {dealer_sum} and yours {player_sum} "
-                                        f"\nand you won {bet * 2} dollars!")
-        balance = balance + (bet * 2)
+                                        f"\nand you won {bet} dollars!")
+        balance = balance + bet
         lbl_balance['text'] = f'Balance:\n{balance}$'
     else:
         playsound(lose_sound)
@@ -363,7 +379,7 @@ def btn_blackjack_take_pressed():
     if player_first + player_second + player_third > 21:
         playsound(lose_sound)
         messagebox.showinfo("You lost!", f"Your cards exceeded 21! \nYou lost {bet} dollars!")
-        balance = balance + (bet * 2)
+        balance = balance + bet
         lbl_balance['text'] = f'Balance:\n{balance}$'
     elif dealer_sum > player_sum:
         playsound(lose_sound)
@@ -374,8 +390,8 @@ def btn_blackjack_take_pressed():
     elif dealer_sum < player_sum:
         playsound(win_sound)
         messagebox.showinfo("You won!", f"Dealer's hand was {dealer_sum} and yours {player_sum} "
-                                        f"\nand you won {bet * 2} dollars!")
-        balance = balance + (bet * 2)
+                                        f"\nand you won {bet} dollars!")
+        balance = balance + bet
         lbl_balance['text'] = f'Balance:\n{balance}$'
     else:
         playsound(lose_sound)
@@ -420,8 +436,8 @@ def btn_back_pressed():
 
 ## Reusable labels and buttons
 
-photo = PhotoImage(file = pic_photoimage)
-lbl_photo = Label(image = photo)
+photo = PhotoImage(file=pic_photoimage)
+lbl_photo = Label(image=photo)
 
 lbl_balance = Label(font=('Roboto', 15), text=f'Balance:\n{balance}$', fg='white', bg='#000051')
 
@@ -444,7 +460,8 @@ lbl_roulette_welcome = Label(font=('Roboto', 15), fg='white', bg='#000051',
 btn_roulette_Roulette = Button(command=lambda: btn_roulette_pressed(), font=('Roboto', 25), text="Roulette", width=20,
                                height=3,
                                bg='#008000', activebackground='#005000')
-btn_roulette_Blackjack = Button(command=btn_blackjack_pressed, font=('Roboto', 25), text="Blackjack", width=20, height=3,
+btn_roulette_Blackjack = Button(command=btn_blackjack_pressed, font=('Roboto', 25), text="Blackjack", width=20,
+                                height=3,
                                 bg='#800000', activebackground='#600000')
 
 ##Roulette frame
@@ -453,7 +470,8 @@ lbl_roulette_your_bet = Label(font=('Roboto', 15), text='Your bet:', fg='white',
 lbl_roulette_cell = Label(font=('Roboto', 15), text='What rolled will be here', fg='white', bg='#000051')
 frm_roulette_bets = Frame(master=window, bg='#008000')
 
-btn_roulette_Number = Button(frm_roulette_bets, command=lambda: btn_bet_bet_choose_pressed(0), font=('Roboto', 15), text="Set:",
+btn_roulette_Number = Button(frm_roulette_bets, command=lambda: btn_bet_bet_choose_pressed(0), font=('Roboto', 15),
+                             text="Set:",
                              width=8, height=1, bg='#A4A4A4', activebackground='#747474')
 btn_roulette_Even = Button(frm_roulette_bets, font=('Roboto', 15), text="Even", width=8, height=1,
                            bg='#A4A4A4', activebackground='#747474', command=lambda: btn_bet_bet_choose_pressed(2))
@@ -481,8 +499,9 @@ ent_roulette_Number_entry = Entry(frm_roulette_bets, font=('Roboto', 25), width=
 ##Blackjack frame
 lbl_blackjack_dealercards = Label(font=('Roboto', 30), text='Dealer\'s cards: ? + ?', fg='white', bg='#800000')
 lbl_blackjack_playercards = Label(font=('Roboto', 30), text='Your cards: ? + ?', fg='white', bg='#800000')
-lbl_blackjack_cant_take = Label(font=('Roboto', 20), text='Because your hand is >10, you can\'t take a card', fg='white',
-                      bg='#800000')
+lbl_blackjack_cant_take = Label(font=('Roboto', 20), text='Because your hand is >10, you can\'t take a card',
+                                fg='white',
+                                bg='#800000')
 btn_blackjack_reveal = Button(font=('Roboto', 30), text="Reveal", width=9, height=1,
                               bg='#A4A4A4', activebackground='#747474', command=btn_blackjack_reveal_pressed,
                               state='disabled')
