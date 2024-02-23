@@ -8,6 +8,7 @@ from pygame import mixer
 # from PIL import Image, ImageTk
 
 
+
 ## Variables
 balance = 1000
 bet = 0
